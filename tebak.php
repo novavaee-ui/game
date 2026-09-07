@@ -28,6 +28,7 @@ if (isset($_POST['reset'])) {
     exit();
 }
 
+// Proses tebakan pemain
 if (isset($_POST['tebak'])) {
 
     // Mengambil angka yang dimasukkan pemain
@@ -51,6 +52,7 @@ if (isset($_POST['tebak'])) {
 
             $pesan = "🎉 Tebakan Anda Benar!<br>
                       Angka yang benar adalah <strong>$x</strong>";
+
             $jenis_pesan = "benar";
             $game_selesai = true;
 
@@ -59,6 +61,7 @@ if (isset($_POST['tebak'])) {
             $pesan = "💀 Tebakan Anda Salah!<br>
                       Kesempatan Anda sudah habis.<br>
                       Angka yang benar adalah <strong>$x</strong>";
+
             $jenis_pesan = "salah";
             $game_selesai = true;
 
@@ -68,6 +71,7 @@ if (isset($_POST['tebak'])) {
 
             $pesan = "⚡ Tebakan Anda Salah!<br>
                       Anda masih memiliki <strong>$sisa kesempatan</strong>.";
+
             $jenis_pesan = "salah";
         }
     }
@@ -76,13 +80,18 @@ if (isset($_POST['tebak'])) {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Cyber Number Game</title>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -95,23 +104,38 @@ if (isset($_POST['tebak'])) {
                 radial-gradient(circle at top, #172554, #020617 60%);
             color: white;
             min-height: 100vh;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             padding: 20px;
         }
 
-        .game-box {
+        .game-container {
             width: 100%;
-            max-width: 500px;
+            max-width: 520px;
+        }
+
+        .game-box {
             padding: 35px;
+
             border: 1px solid #00f7ff;
             border-radius: 20px;
+
             background: rgba(2, 6, 23, 0.9);
+
             box-shadow:
                 0 0 20px #00f7ff,
                 0 0 50px rgba(0, 247, 255, 0.2);
+
             text-align: center;
+        }
+
+        /* HEADER */
+
+        .game-header {
+            margin-bottom: 25px;
         }
 
         .icon {
@@ -123,24 +147,41 @@ if (isset($_POST['tebak'])) {
             color: #00f7ff;
             font-size: 36px;
             letter-spacing: 4px;
-            text-shadow: 0 0 15px #00f7ff;
+
+            text-shadow:
+                0 0 15px #00f7ff;
+
             margin-bottom: 10px;
         }
 
         .online {
             color: #00ff88;
             font-size: 14px;
-            margin-bottom: 25px;
         }
 
-        .rules {
+        /* ATURAN GAME */
+
+        .game-info {
             background: rgba(0, 247, 255, 0.08);
-            border: 1px solid rgba(0, 247, 255, 0.3);
+
+            border: 1px solid
+                rgba(0, 247, 255, 0.3);
+
             border-radius: 12px;
+
             padding: 15px;
+
             margin-bottom: 25px;
+
             line-height: 1.7;
+
             color: #cbd5e1;
+        }
+
+        /* AREA PERMAINAN */
+
+        .game-content {
+            margin-top: 10px;
         }
 
         .input-group {
@@ -149,161 +190,284 @@ if (isset($_POST['tebak'])) {
 
         label {
             display: block;
+
             margin-bottom: 10px;
+
             color: #00f7ff;
+
             font-weight: bold;
         }
 
         input[type="number"] {
             width: 100%;
+
             padding: 15px;
+
             border-radius: 10px;
+
             border: 1px solid #00f7ff;
+
             background: #020617;
+
             color: white;
+
             font-size: 20px;
+
             text-align: center;
+
             outline: none;
         }
 
         input[type="number"]:focus {
-            box-shadow: 0 0 15px #00f7ff;
+            box-shadow:
+                0 0 15px #00f7ff;
         }
 
         button {
             width: 100%;
+
             padding: 15px;
+
             border: none;
+
             border-radius: 10px;
-            background: linear-gradient(90deg, #00f7ff, #00ff88);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00f7ff,
+                    #00ff88
+                );
+
             color: #020617;
+
             font-size: 18px;
+
             font-weight: bold;
+
             cursor: pointer;
+
             transition: 0.3s;
-            margin-top: 5px;
         }
 
         button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 0 20px #00f7ff;
+
+            box-shadow:
+                0 0 20px #00f7ff;
         }
 
-        .reset-button {
-            background: linear-gradient(90deg, #a855f7, #ec4899);
-            color: white;
-            margin-top: 12px;
-        }
-
-        .reset-button:hover {
-            box-shadow: 0 0 20px #ec4899;
-        }
+        /* HASIL PERMAINAN */
 
         .hasil {
             margin-top: 25px;
+
             padding: 18px;
+
             border-radius: 12px;
+
             line-height: 1.6;
+
             font-size: 16px;
         }
 
         .benar {
-            background: rgba(0, 255, 136, 0.12);
+            background:
+                rgba(0, 255, 136, 0.12);
+
             border: 1px solid #00ff88;
+
             color: #00ff88;
         }
 
         .salah {
-            background: rgba(255, 0, 80, 0.12);
+            background:
+                rgba(255, 0, 80, 0.12);
+
             border: 1px solid #ff0055;
+
             color: #ff4d88;
         }
 
-        footer {
-            margin-top: 25px;
-            font-size: 12px;
-            color: #64748b;
+        /* TOMBOL MAIN LAGI */
+
+        .reset-button {
+            background:
+                linear-gradient(
+                    90deg,
+                    #a855f7,
+                    #ec4899
+                );
+
+            color: white;
+
+            margin-top: 12px;
         }
+
+        .reset-button:hover {
+            box-shadow:
+                0 0 20px #ec4899;
+        }
+
+        /* FOOTER */
+
+        .game-footer {
+            margin-top: 25px;
+
+            font-size: 12px;
+
+            color: #64748b;
+
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 600px) {
+
+            .game-box {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .icon {
+                font-size: 50px;
+            }
+
+        }
+
     </style>
+
 </head>
 
 <body>
 
-<div class="game-box">
+    <div class="game-container">
 
-    <div class="icon">🎯</div>
+        <div class="game-box">
 
-    <h1>CYBER NUMBER</h1>
+            <!-- HEADER GAME -->
 
-    <div class="online">
-        ● GAME ONLINE
-    </div>
+            <header class="game-header">
 
-    <div class="rules">
-        Tebak angka rahasia dari <strong>1 sampai 5</strong>.<br>
-        Kamu memiliki <strong>3 kesempatan</strong> untuk menebak.
-    </div>
+                <div class="icon">
+                    🎯
+                </div>
 
-    <?php if (!$game_selesai) { ?>
+                <h1>
+                    CYBER NUMBER
+                </h1>
 
-        <form method="POST">
+                <div class="online">
+                    ● GAME ONLINE
+                </div>
 
-            <div class="input-group">
+            </header>
 
-                <label for="tebak">
-                    MASUKKAN TEBAKAN
-                </label>
 
-                <input
-                    type="number"
-                    id="tebak"
-                    name="tebak"
-                    min="1"
-                    max="5"
-                    required
-                    placeholder="1 - 5"
-                >
+            <!-- INFORMASI GAME -->
 
-            </div>
+            <section class="game-info">
 
-            <button type="submit">
-                🚀 TEBAK SEKARANG
-            </button>
+                Tebak angka rahasia dari
+                <strong>1 sampai 5</strong>.
 
-        </form>
+                <br>
 
-    <?php } ?>
+                Kamu memiliki
+                <strong>3 kesempatan</strong>
+                untuk menebak.
 
-    <?php if ($pesan != "") { ?>
+            </section>
 
-        <div class="hasil <?php echo $jenis_pesan; ?>">
-            <?php echo $pesan; ?>
+
+            <!-- AREA GAME -->
+
+            <main class="game-content">
+
+                <?php if (!$game_selesai) { ?>
+
+                    <form method="POST">
+
+                        <div class="input-group">
+
+                            <label for="tebak">
+                                MASUKKAN TEBAKAN
+                            </label>
+
+                            <input
+                                type="number"
+                                id="tebak"
+                                name="tebak"
+                                min="1"
+                                max="5"
+                                required
+                                placeholder="1 - 5"
+                            >
+
+                        </div>
+
+                        <button type="submit">
+                            🚀 TEBAK SEKARANG
+                        </button>
+
+                    </form>
+
+                <?php } ?>
+
+
+                <!-- HASIL TEBAKAN -->
+
+                <?php if ($pesan != "") { ?>
+
+                    <div
+                        class="hasil <?php echo $jenis_pesan; ?>"
+                    >
+
+                        <?php echo $pesan; ?>
+
+                    </div>
+
+                <?php } ?>
+
+
+                <!-- RESET GAME -->
+
+                <?php if ($game_selesai) { ?>
+
+                    <form method="POST">
+
+                        <button
+                            type="submit"
+                            name="reset"
+                            class="reset-button"
+                        >
+                            🔄 MAIN LAGI
+                        </button>
+
+                    </form>
+
+                <?php } ?>
+
+            </main>
+
+
+            <!-- FOOTER -->
+
+            <footer class="game-footer">
+
+                CYBER NUMBER GAME © 2026
+
+            </footer>
+
         </div>
 
-    <?php } ?>
-
-    <?php if ($game_selesai) { ?>
-
-        <form method="POST">
-
-            <button
-                type="submit"
-                name="reset"
-                class="reset-button"
-            >
-                🔄 MAIN LAGI
-            </button>
-
-        </form>
-
-    <?php } ?>
-
-    <footer>
-        CYBER NUMBER GAME © 2026
-    </footer>
-
-</div>
+    </div>
 
 </body>
+
 </html>
 
