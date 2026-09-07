@@ -2,6 +2,7 @@
 <?php
 session_start();
 
+// Sistem session untuk menyimpan data permainan
 // Membuat angka rahasia hanya sekali
 if (!isset($_SESSION['angka'])) {
     $_SESSION['angka'] = rand(1, 5);
@@ -53,6 +54,7 @@ if (isset($_POST['tebak'])) {
 
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
     <meta charset="UTF-8">
@@ -74,24 +76,37 @@ if (isset($_POST['tebak'])) {
             display: flex;
             justify-content: center;
             align-items: center;
+
             background:
-                radial-gradient(circle at top left, #1e3a8a, transparent 35%),
-                radial-gradient(circle at bottom right, #581c87, transparent 35%),
+                radial-gradient(
+                    circle at top left,
+                    #1e3a8a,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #581c87,
+                    transparent 35%
+                ),
                 #050816;
+
             color: white;
             overflow: hidden;
         }
 
-        /* Efek background */
+        /* Efek cahaya background */
 
         body::before {
             content: "";
             position: fixed;
+
             width: 300px;
             height: 300px;
+
             background: #00e5ff;
             filter: blur(150px);
             opacity: 0.15;
+
             top: -100px;
             left: -100px;
         }
@@ -99,18 +114,24 @@ if (isset($_POST['tebak'])) {
         body::after {
             content: "";
             position: fixed;
+
             width: 300px;
             height: 300px;
+
             background: #a855f7;
             filter: blur(150px);
             opacity: 0.15;
+
             bottom: -100px;
             right: -100px;
         }
 
+        /* Container utama */
+
         .container {
             width: 430px;
             padding: 35px;
+
             border-radius: 25px;
 
             background: rgba(15, 23, 42, 0.90);
@@ -126,6 +147,8 @@ if (isset($_POST['tebak'])) {
             position: relative;
             z-index: 2;
         }
+
+        /* Icon */
 
         .icon {
             width: 85px;
@@ -165,6 +188,8 @@ if (isset($_POST['tebak'])) {
 
         }
 
+        /* Judul */
+
         h1 {
             font-size: 30px;
             margin-bottom: 8px;
@@ -179,11 +204,34 @@ if (isset($_POST['tebak'])) {
             -webkit-text-fill-color: transparent;
         }
 
+        /* Deskripsi */
+
         .deskripsi {
             color: #94a3b8;
             font-size: 14px;
             margin-bottom: 25px;
         }
+
+        /* Status */
+
+        .status {
+            display: inline-block;
+
+            margin-top: 8px;
+            margin-bottom: 20px;
+
+            padding: 5px 12px;
+
+            border-radius: 20px;
+
+            background: rgba(34, 211, 238, 0.1);
+
+            color: #22d3ee;
+
+            font-size: 11px;
+        }
+
+        /* Aturan permainan */
 
         .aturan {
             text-align: left;
@@ -209,6 +257,8 @@ if (isset($_POST['tebak'])) {
             color: #22d3ee;
         }
 
+        /* Label input */
+
         .input-label {
             display: block;
 
@@ -222,6 +272,8 @@ if (isset($_POST['tebak'])) {
 
             font-weight: bold;
         }
+
+        /* Input */
 
         input {
             width: 100%;
@@ -257,6 +309,8 @@ if (isset($_POST['tebak'])) {
             box-shadow:
                 0 0 15px rgba(34, 211, 238, 0.25);
         }
+
+        /* Tombol */
 
         button {
             width: 100%;
@@ -298,6 +352,8 @@ if (isset($_POST['tebak'])) {
             transform: scale(0.98);
         }
 
+        /* Hasil */
+
         .hasil {
             margin-top: 20px;
 
@@ -326,6 +382,8 @@ if (isset($_POST['tebak'])) {
 
         }
 
+        /* Jawaban benar */
+
         .benar {
             background: rgba(34, 197, 94, 0.12);
 
@@ -337,6 +395,8 @@ if (isset($_POST['tebak'])) {
                 0 0 15px rgba(34, 197, 94, 0.08);
         }
 
+        /* Jawaban salah */
+
         .salah {
             background: rgba(239, 68, 68, 0.12);
 
@@ -347,6 +407,8 @@ if (isset($_POST['tebak'])) {
             box-shadow:
                 0 0 15px rgba(239, 68, 68, 0.08);
         }
+
+        /* Footer */
 
         .footer {
             margin-top: 25px;
@@ -360,21 +422,7 @@ if (isset($_POST['tebak'])) {
             border-top: 1px solid rgba(148, 163, 184, 0.1);
         }
 
-        .status {
-            display: inline-block;
-
-            margin-top: 8px;
-
-            padding: 5px 12px;
-
-            border-radius: 20px;
-
-            background: rgba(34, 211, 238, 0.1);
-
-            color: #22d3ee;
-
-            font-size: 11px;
-        }
+        /* Responsive */
 
         @media (max-width: 500px) {
 
@@ -397,19 +445,29 @@ if (isset($_POST['tebak'])) {
 
 <div class="container">
 
+    <!-- Icon Game -->
+
     <div class="icon">
         🎯
     </div>
 
+    <!-- Judul -->
+
     <h1>CYBER NUMBER</h1>
+
+    <!-- Deskripsi -->
 
     <p class="deskripsi">
         Tantang keberuntunganmu dan temukan angka rahasia!
     </p>
 
+    <!-- Status -->
+
     <div class="status">
         ● GAME ONLINE
     </div>
+
+    <!-- Aturan -->
 
     <div class="aturan">
 
@@ -422,6 +480,8 @@ if (isset($_POST['tebak'])) {
         🔐 Angka rahasia tetap selama permainan
 
     </div>
+
+    <!-- Form Tebakan -->
 
     <form method="post">
 
@@ -444,6 +504,8 @@ if (isset($_POST['tebak'])) {
 
     </form>
 
+    <!-- Menampilkan hasil -->
+
     <?php if ($pesan != "") { ?>
 
         <div class="hasil <?php echo $jenis_pesan; ?>">
@@ -454,10 +516,13 @@ if (isset($_POST['tebak'])) {
 
     <?php } ?>
 
+    <!-- Footer -->
+
     <div class="footer">
 
         🎮 CYBER NUMBER GAME
         <br>
+
         Powered by PHP
 
     </div>
@@ -465,5 +530,6 @@ if (isset($_POST['tebak'])) {
 </div>
 
 </body>
+
 </html>
 ```
