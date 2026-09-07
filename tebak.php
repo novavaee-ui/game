@@ -1,9 +1,10 @@
-```php
+
 <?php
 session_start();
 
 // Sistem session untuk menyimpan data permainan
-// Membuat angka rahasia hanya sekali
+
+// Membuat angka rahasia secara acak dari 1 sampai 5
 if (!isset($_SESSION['angka'])) {
     $_SESSION['angka'] = rand(1, 5);
     $_SESSION['percobaan'] = 0;
@@ -94,7 +95,7 @@ if (isset($_POST['tebak'])) {
             overflow: hidden;
         }
 
-        /* Efek cahaya background */
+        /* Efek background */
 
         body::before {
             content: "";
@@ -126,7 +127,7 @@ if (isset($_POST['tebak'])) {
             right: -100px;
         }
 
-        /* Container utama */
+        /* Container */
 
         .container {
             width: 430px;
@@ -231,7 +232,7 @@ if (isset($_POST['tebak'])) {
             font-size: 11px;
         }
 
-        /* Aturan permainan */
+        /* Aturan */
 
         .aturan {
             text-align: left;
@@ -257,7 +258,7 @@ if (isset($_POST['tebak'])) {
             color: #22d3ee;
         }
 
-        /* Label input */
+        /* Label */
 
         .input-label {
             display: block;
@@ -310,7 +311,7 @@ if (isset($_POST['tebak'])) {
                 0 0 15px rgba(34, 211, 238, 0.25);
         }
 
-        /* Tombol */
+        /* Button */
 
         button {
             width: 100%;
@@ -382,7 +383,7 @@ if (isset($_POST['tebak'])) {
 
         }
 
-        /* Jawaban benar */
+        /* Benar */
 
         .benar {
             background: rgba(34, 197, 94, 0.12);
@@ -395,7 +396,7 @@ if (isset($_POST['tebak'])) {
                 0 0 15px rgba(34, 197, 94, 0.08);
         }
 
-        /* Jawaban salah */
+        /* Salah */
 
         .salah {
             background: rgba(239, 68, 68, 0.12);
@@ -445,29 +446,19 @@ if (isset($_POST['tebak'])) {
 
 <div class="container">
 
-    <!-- Icon Game -->
-
     <div class="icon">
         🎯
     </div>
 
-    <!-- Judul -->
-
     <h1>CYBER NUMBER</h1>
-
-    <!-- Deskripsi -->
 
     <p class="deskripsi">
         Tantang keberuntunganmu dan temukan angka rahasia!
     </p>
 
-    <!-- Status -->
-
     <div class="status">
         ● GAME ONLINE
     </div>
-
-    <!-- Aturan -->
 
     <div class="aturan">
 
@@ -480,8 +471,6 @@ if (isset($_POST['tebak'])) {
         🔐 Angka rahasia tetap selama permainan
 
     </div>
-
-    <!-- Form Tebakan -->
 
     <form method="post">
 
@@ -504,8 +493,6 @@ if (isset($_POST['tebak'])) {
 
     </form>
 
-    <!-- Menampilkan hasil -->
-
     <?php if ($pesan != "") { ?>
 
         <div class="hasil <?php echo $jenis_pesan; ?>">
@@ -515,8 +502,6 @@ if (isset($_POST['tebak'])) {
         </div>
 
     <?php } ?>
-
-    <!-- Footer -->
 
     <div class="footer">
 
@@ -532,4 +517,4 @@ if (isset($_POST['tebak'])) {
 </body>
 
 </html>
-```
+
