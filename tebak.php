@@ -14,12 +14,15 @@ $x = $_SESSION['angka'];
 $pesan = "";
 $jenis_pesan = "";
 
+// Batas maksimal percobaan
+$batas_percobaan = 3;
+
 if (isset($_POST['tebak'])) {
 
     // Mengambil angka yang dimasukkan pemain
     $tebakan = $_POST['tebak'];
 
-    // Validasi angka tebakan harus antara 1 sampai 5
+    // Validasi angka tebakan
     if ($tebakan < 1 || $tebakan > 5) {
 
         $pesan = "⚠️ Masukkan angka antara <strong>1 sampai 5</strong>.";
@@ -27,10 +30,12 @@ if (isset($_POST['tebak'])) {
 
     } else {
 
+        // Menambah jumlah percobaan
         $_SESSION['percobaan']++;
 
         $percobaan = $_SESSION['percobaan'];
 
+        // Memeriksa jawaban
         if ($tebakan == $x) {
 
             $pesan = "🎉 Tebakan Anda Benar!<br>
@@ -41,7 +46,7 @@ if (isset($_POST['tebak'])) {
             unset($_SESSION['angka']);
             unset($_SESSION['percobaan']);
 
-        } elseif ($percobaan >= 3) {
+        } elseif ($percobaan >= $batas_percobaan) {
 
             $pesan = "💀 Tebakan Anda Salah!<br>
                       Kesempatan Anda sudah habis.<br>
@@ -54,7 +59,7 @@ if (isset($_POST['tebak'])) {
 
         } else {
 
-            $sisa = 3 - $percobaan;
+            $sisa = $batas_percobaan - $percobaan;
 
             $pesan = "⚡ Tebakan Anda Salah!<br>
                       Anda masih memiliki <strong>$sisa kesempatan</strong>.";
@@ -154,13 +159,10 @@ if (isset($_POST['tebak'])) {
             font-size: 20px;
             text-align: center;
             outline: none;
-            box-shadow: inset 0 0 10px rgba(0, 247, 255, 0.1);
         }
 
         input[type="number"]:focus {
-            box-shadow:
-                0 0 15px #00f7ff,
-                inset 0 0 10px rgba(0, 247, 255, 0.2);
+            box-shadow: 0 0 15px #00f7ff;
         }
 
         button {
@@ -193,14 +195,12 @@ if (isset($_POST['tebak'])) {
             background: rgba(0, 255, 136, 0.12);
             border: 1px solid #00ff88;
             color: #00ff88;
-            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
 
         .salah {
             background: rgba(255, 0, 80, 0.12);
             border: 1px solid #ff0055;
             color: #ff4d88;
-            box-shadow: 0 0 15px rgba(255, 0, 80, 0.3);
         }
 
         footer {
@@ -231,7 +231,10 @@ if (isset($_POST['tebak'])) {
     <form method="POST">
 
         <div class="input-group">
-            <label for="tebak">MASUKKAN TEBAKAN</label>
+
+            <label for="tebak">
+                MASUKKAN TEBAKAN
+            </label>
 
             <input
                 type="number"
@@ -242,6 +245,7 @@ if (isset($_POST['tebak'])) {
                 required
                 placeholder="1 - 5"
             >
+
         </div>
 
         <button type="submit">
@@ -266,3 +270,4 @@ if (isset($_POST['tebak'])) {
 
 </body>
 </html>
+
