@@ -16,9 +16,11 @@ $jenis_pesan = "";
 
 if (isset($_POST['tebak'])) {
 
+    // Mengambil angka yang dimasukkan pemain
+    $tebakan = $_POST['tebak'];
+
     $_SESSION['percobaan']++;
 
-    $tebakan = $_POST['tebak'];
     $percobaan = $_SESSION['percobaan'];
 
     if ($tebakan == $x) {
@@ -55,440 +57,186 @@ if (isset($_POST['tebak'])) {
 
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Cyber Number Game</title>
 
     <style>
-
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         body {
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(circle at top, #172554, #020617 60%);
+            color: white;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-
-            background:
-                radial-gradient(
-                    circle at top left,
-                    #1e3a8a,
-                    transparent 35%
-                ),
-                radial-gradient(
-                    circle at bottom right,
-                    #581c87,
-                    transparent 35%
-                ),
-                #050816;
-
-            color: white;
-            overflow: hidden;
+            padding: 20px;
         }
 
-        /* Efek background */
-
-        body::before {
-            content: "";
-            position: fixed;
-
-            width: 300px;
-            height: 300px;
-
-            background: #00e5ff;
-            filter: blur(150px);
-            opacity: 0.15;
-
-            top: -100px;
-            left: -100px;
-        }
-
-        body::after {
-            content: "";
-            position: fixed;
-
-            width: 300px;
-            height: 300px;
-
-            background: #a855f7;
-            filter: blur(150px);
-            opacity: 0.15;
-
-            bottom: -100px;
-            right: -100px;
-        }
-
-        /* Container */
-
-        .container {
-            width: 430px;
+        .game-box {
+            width: 100%;
+            max-width: 500px;
             padding: 35px;
-
-            border-radius: 25px;
-
-            background: rgba(15, 23, 42, 0.90);
-
-            border: 1px solid rgba(0, 229, 255, 0.25);
-
+            border: 1px solid #00f7ff;
+            border-radius: 20px;
+            background: rgba(2, 6, 23, 0.9);
             box-shadow:
-                0 0 30px rgba(0, 229, 255, 0.12),
-                0 25px 60px rgba(0, 0, 0, 0.6);
-
+                0 0 20px #00f7ff,
+                0 0 50px rgba(0, 247, 255, 0.2);
             text-align: center;
-
-            position: relative;
-            z-index: 2;
         }
-
-        /* Icon */
 
         .icon {
-            width: 85px;
-            height: 85px;
-
-            margin: 0 auto 18px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            border-radius: 50%;
-
-            font-size: 42px;
-
-            background: linear-gradient(
-                135deg,
-                #06b6d4,
-                #7c3aed
-            );
-
-            box-shadow:
-                0 0 25px rgba(6, 182, 212, 0.4);
-
-            animation: float 2s infinite ease-in-out;
+            font-size: 60px;
+            margin-bottom: 10px;
         }
-
-        @keyframes float {
-
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-8px);
-            }
-
-        }
-
-        /* Judul */
 
         h1 {
-            font-size: 30px;
-            margin-bottom: 8px;
-
-            background: linear-gradient(
-                90deg,
-                #22d3ee,
-                #a78bfa
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #00f7ff;
+            font-size: 36px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 15px #00f7ff;
+            margin-bottom: 10px;
         }
 
-        /* Deskripsi */
-
-        .deskripsi {
-            color: #94a3b8;
+        .online {
+            color: #00ff88;
             font-size: 14px;
             margin-bottom: 25px;
         }
 
-        /* Status */
+        .rules {
+            background: rgba(0, 247, 255, 0.08);
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            color: #cbd5e1;
+        }
 
-        .status {
-            display: inline-block;
-
-            margin-top: 8px;
+        .input-group {
             margin-bottom: 20px;
-
-            padding: 5px 12px;
-
-            border-radius: 20px;
-
-            background: rgba(34, 211, 238, 0.1);
-
-            color: #22d3ee;
-
-            font-size: 11px;
         }
 
-        /* Aturan */
-
-        .aturan {
-            text-align: left;
-
-            background: rgba(30, 41, 59, 0.8);
-
-            border: 1px solid rgba(148, 163, 184, 0.15);
-
-            padding: 17px;
-
-            border-radius: 15px;
-
-            margin-bottom: 22px;
-
-            color: #cbd5e1;
-
-            font-size: 14px;
-
-            line-height: 1.8;
-        }
-
-        .aturan strong {
-            color: #22d3ee;
-        }
-
-        /* Label */
-
-        .input-label {
+        label {
             display: block;
-
-            text-align: left;
-
-            margin-bottom: 8px;
-
-            color: #cbd5e1;
-
-            font-size: 14px;
-
+            margin-bottom: 10px;
+            color: #00f7ff;
             font-weight: bold;
         }
 
-        /* Input */
-
-        input {
+        input[type="number"] {
             width: 100%;
-
             padding: 15px;
-
-            border-radius: 12px;
-
-            border: 2px solid #334155;
-
-            outline: none;
-
-            background: #0f172a;
-
+            border-radius: 10px;
+            border: 1px solid #00f7ff;
+            background: #020617;
             color: white;
-
-            font-size: 18px;
-
+            font-size: 20px;
             text-align: center;
-
-            transition: 0.3s;
-
-            margin-bottom: 15px;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(0, 247, 255, 0.1);
         }
 
-        input::placeholder {
-            color: #64748b;
-        }
-
-        input:focus {
-            border-color: #22d3ee;
-
+        input[type="number"]:focus {
             box-shadow:
-                0 0 15px rgba(34, 211, 238, 0.25);
+                0 0 15px #00f7ff,
+                inset 0 0 10px rgba(0, 247, 255, 0.2);
         }
-
-        /* Button */
 
         button {
             width: 100%;
-
             padding: 15px;
-
             border: none;
-
-            border-radius: 12px;
-
-            background: linear-gradient(
-                135deg,
-                #06b6d4,
-                #7c3aed
-            );
-
-            color: white;
-
-            font-size: 16px;
-
+            border-radius: 10px;
+            background: linear-gradient(90deg, #00f7ff, #00ff88);
+            color: #020617;
+            font-size: 18px;
             font-weight: bold;
-
             cursor: pointer;
-
             transition: 0.3s;
-
-            box-shadow:
-                0 8px 20px rgba(124, 58, 237, 0.3);
         }
 
         button:hover {
             transform: translateY(-2px);
-
-            box-shadow:
-                0 12px 25px rgba(6, 182, 212, 0.35);
+            box-shadow: 0 0 20px #00f7ff;
         }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        /* Hasil */
 
         .hasil {
-            margin-top: 20px;
-
-            padding: 17px;
-
+            margin-top: 25px;
+            padding: 18px;
             border-radius: 12px;
-
-            line-height: 1.7;
-
-            font-size: 14px;
-
-            animation: muncul 0.4s ease;
+            line-height: 1.6;
+            font-size: 16px;
         }
-
-        @keyframes muncul {
-
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-
-        }
-
-        /* Benar */
 
         .benar {
-            background: rgba(34, 197, 94, 0.12);
-
-            border: 1px solid rgba(34, 197, 94, 0.4);
-
-            color: #86efac;
-
-            box-shadow:
-                0 0 15px rgba(34, 197, 94, 0.08);
+            background: rgba(0, 255, 136, 0.12);
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
         }
-
-        /* Salah */
 
         .salah {
-            background: rgba(239, 68, 68, 0.12);
-
-            border: 1px solid rgba(239, 68, 68, 0.4);
-
-            color: #fca5a5;
-
-            box-shadow:
-                0 0 15px rgba(239, 68, 68, 0.08);
+            background: rgba(255, 0, 80, 0.12);
+            border: 1px solid #ff0055;
+            color: #ff4d88;
+            box-shadow: 0 0 15px rgba(255, 0, 80, 0.3);
         }
 
-        /* Footer */
-
-        .footer {
+        footer {
             margin-top: 25px;
-
-            color: #64748b;
-
             font-size: 12px;
-
-            padding-top: 15px;
-
-            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            color: #64748b;
         }
-
-        /* Responsive */
-
-        @media (max-width: 500px) {
-
-            .container {
-                width: 90%;
-                padding: 28px 22px;
-            }
-
-            h1 {
-                font-size: 25px;
-            }
-
-        }
-
     </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="game-box">
 
-    <div class="icon">
-        🎯
-    </div>
+    <div class="icon">🎯</div>
 
     <h1>CYBER NUMBER</h1>
 
-    <p class="deskripsi">
-        Tantang keberuntunganmu dan temukan angka rahasia!
-    </p>
-
-    <div class="status">
+    <div class="online">
         ● GAME ONLINE
     </div>
 
-    <div class="aturan">
-
-        <strong>⚡ MISSION RULES</strong><br>
-
-        🎯 Angka rahasia: <b>1 – 5</b><br>
-
-        ❤️ Kesempatan bermain: <b>3 kali</b><br>
-
-        🔐 Angka rahasia tetap selama permainan
-
+    <div class="rules">
+        Tebak angka rahasia dari <strong>1 sampai 5</strong>.<br>
+        Kamu memiliki <strong>3 kesempatan</strong> untuk menebak.
     </div>
 
-    <form method="post">
+    <form method="POST">
 
-        <label class="input-label">
-            MASUKKAN ANGKA
-        </label>
+        <div class="input-group">
+            <label for="tebak">MASUKKAN TEBAKAN</label>
 
-        <input
-            type="number"
-            name="tebak"
-            min="1"
-            max="5"
-            placeholder="1 - 5"
-            required
-        >
+            <input
+                type="number"
+                id="tebak"
+                name="tebak"
+                min="1"
+                max="5"
+                required
+                placeholder="1 - 5"
+            >
+        </div>
 
         <button type="submit">
-            🚀 SUBMIT TEBAKAN
+            🚀 TEBAK SEKARANG
         </button>
 
     </form>
@@ -496,25 +244,17 @@ if (isset($_POST['tebak'])) {
     <?php if ($pesan != "") { ?>
 
         <div class="hasil <?php echo $jenis_pesan; ?>">
-
             <?php echo $pesan; ?>
-
         </div>
 
     <?php } ?>
 
-    <div class="footer">
-
-        🎮 CYBER NUMBER GAME
-        <br>
-
-        Powered by PHP
-
-    </div>
+    <footer>
+        CYBER NUMBER GAME © 2026
+    </footer>
 
 </div>
 
 </body>
-
 </html>
 
